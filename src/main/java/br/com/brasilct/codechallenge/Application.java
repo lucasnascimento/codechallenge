@@ -17,6 +17,10 @@ import org.springframework.data.neo4j.config.Neo4jConfiguration;
 @EnableNeo4jRepositories (basePackages = "br.com.brasilct.codechallenge.repository")
 public class Application extends Neo4jConfiguration{
 	
+	Application() {
+        setBasePackage("br.com.brasilct.codechallenge.model");
+    }
+	
 	@Bean
 	GraphDatabaseService graphDatabaseService() {
         return  new GraphDatabaseFactory().newEmbeddedDatabase("data/graphDatabase.db");// new EmbeddedGraphDatabase("graphDatabase.db");

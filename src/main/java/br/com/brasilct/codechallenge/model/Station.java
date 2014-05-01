@@ -19,6 +19,8 @@ public @Data class Station {
 	
 	@GraphId
 	private Long id;
+	
+	private Long stationId;
 	private Double latitude;
 	private Double longitude;
 	@Indexed(indexType = IndexType.FULLTEXT, indexName = "name")

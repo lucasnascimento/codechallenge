@@ -14,7 +14,7 @@ import org.springframework.data.neo4j.config.Neo4jConfiguration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@EnableNeo4jRepositories
+@EnableNeo4jRepositories (basePackages = "br.com.brasilct.codechallenge.repository")
 public class Application extends Neo4jConfiguration{
 	
 	@Bean

@@ -4,8 +4,8 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 
 import br.com.brasilct.codechallenge.model.Station;
 
-interface StationRepository extends GraphRepository<Station> {
+public interface StationRepository extends GraphRepository<Station> {
 	
-	Station findById(Long id);
+	Station findByStationId(Long id);
 
 }

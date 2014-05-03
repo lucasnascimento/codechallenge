@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -15,6 +18,7 @@ import org.springframework.data.neo4j.support.index.IndexType;
 
 @NodeEntity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude={"stations"})
 public @Data class Station {
 	
 	@GraphId
@@ -28,17 +32,18 @@ public @Data class Station {
 	private String displayName;
 	private Double zone;
 	private Integer totalLines;
-	private Integer rall;
+	private Integer rail;
 	
 	@RelatedToVia(type="LEADS_TO", direction = Direction.BOTH)
-	private Set<StationRelationship> stations;
+	private Set<StationRelationship> stations = new HashSet<StationRelationship>();
 	
-	public void leadsTo(Station station2, Long lineId ){
-		if (stations == null){
-			stations = new HashSet<StationRelationship>();
-		}
-		StationRelationship satationRel = new StationRelationship(this, station2, lineId);
-		stations.add(satationRel);
+	@SuppressWarnings("deprecation")
+	public StationRelationship leadsTo(Station station2, Long lineId,GraphDatabaseService graphDatabaseService ){
+		StationRelationship stationRel = new StationRelationship(this, station2, lineId);
+		Transaction transaction = graphDatabaseService.beginTx();
+		stations.add(stationRel);
+		transaction.success();transaction.finish();
+		return stationRel;
 	}
 
 }

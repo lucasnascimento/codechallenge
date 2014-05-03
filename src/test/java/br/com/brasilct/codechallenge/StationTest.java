@@ -3,6 +3,7 @@ package br.com.brasilct.codechallenge;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ public class StationTest {
 
 	@Autowired
 	StationRepository repository;
+	@Autowired GraphDatabaseService graphDatabaseService;
 
 	@Test
 	@Transactional
@@ -36,7 +38,7 @@ public class StationTest {
 		station1.setDisplayName("Acton<br />Town");
 		station1.setZone(3.0);
 		station1.setTotalLines(2);
-		station1.setRall(0);
+		station1.setRail(0);
 
 		Station station2 = new Station();
 		station2.setStationId(2l);
@@ -46,13 +48,13 @@ public class StationTest {
 		station2.setDisplayName(null);
 		station2.setZone(1.0);
 		station2.setTotalLines(2);
-		station2.setRall(0);
+		station2.setRail(0);
 
 		repository.save(station1);
 		repository.save(station2);
 
 		station1 = repository.findByStationId(station1.getStationId());
-		station1.leadsTo(station2, 1l);
+		station1.leadsTo(station2, 1l,graphDatabaseService);
 		
 		repository.save(station1);
 		Assert.assertEquals(2, repository.count());

@@ -52,7 +52,7 @@ public class DatabasePopulator implements ApplicationListener<ContextRefreshedEv
 	@Autowired GraphDatabaseService graphDatabaseService;
 	
 	public void loadLines() throws IOException {
-		Reader in = new FileReader("/Users/lucas/Development/workspace-lnprojetos/codechallenge/data/lines.csv");
+		Reader in = new FileReader("data/lines.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("station1","station2","line").parse(in);
 		for (CSVRecord record : records) {
 			if (record.isConsistent()){
@@ -84,7 +84,7 @@ public class DatabasePopulator implements ApplicationListener<ContextRefreshedEv
 	}
 
 	public void loadRoutes() throws IOException {
-		Reader in = new FileReader("/Users/lucas/Development/workspace-lnprojetos/codechallenge/data/routes.csv");
+		Reader in = new FileReader("data/routes.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("line","name","colour","stripe").parse(in);
 		for (CSVRecord record : records) {
 			if (record.isConsistent()){
@@ -105,7 +105,7 @@ public class DatabasePopulator implements ApplicationListener<ContextRefreshedEv
 	}
 
 	public void loadStations() throws IOException {
-		Reader in = new FileReader("/Users/lucas/Development/workspace-lnprojetos/codechallenge/data/stations.csv");
+		Reader in = new FileReader("data/stations.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("id","latitude","longitude","name","display_name","zone","total_lines","rail").parse(in);
 		for (CSVRecord record : records) {
 			if (record.isConsistent()){

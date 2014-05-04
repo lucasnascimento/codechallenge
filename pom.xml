@@ -4,7 +4,6 @@
 	<groupId>br.com.brasilct</groupId>
 	<artifactId>codechallenge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>Code Challenge</name>
 	<description>Aplicativo para atender as demandas do Code Challenge da BrasilCT</description>
 	<parent>
@@ -93,6 +92,10 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
@@ -121,4 +124,5 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<packaging>war</packaging>
 </project>

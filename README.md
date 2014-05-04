@@ -19,6 +19,7 @@ Para testar no browser acesse:
 3. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATION}/shortest/totaltime
 
 Exemplo:
+
 1. http://localhost:8080/route/49/285/
 2. http://localhost:8080/route/49/285/shortest/
 3. http://localhost:8080/route/49/285/shortest/totaltime

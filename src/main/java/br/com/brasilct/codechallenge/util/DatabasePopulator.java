@@ -25,6 +25,13 @@ import br.com.brasilct.codechallenge.repository.StationRepository;
 @Service 
 @Log4j
 public class DatabasePopulator implements ApplicationListener<ContextRefreshedEvent>{
+
+	@Value(value="csv_data_path")
+	private String csvDataPath;
+	
+	@Autowired GraphDatabaseService graphDatabaseService;
+	@Autowired StationRepository stationRepository;
+	@Autowired RouteRepository routeRepository;
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
@@ -33,24 +40,21 @@ public class DatabasePopulator implements ApplicationListener<ContextRefreshedEv
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
-	
-	@Autowired StationRepository stationRepository;
-	
-	@Autowired RouteRepository routeRepository;
-	
-	@Value(value="csv_data_path")
-	private String csvDataPath;
 
+	/**
+	 * Importará apenas uma vez verificando se não houverem Stations
+	 * 
+	 * @throws IOException
+	 */
 	public void populateFromCSV() throws IOException{
-		loadStations();
-		loadRoutes();
-		loadLines();
+		if (stationRepository.count() == 0){
+			loadStations();
+			loadRoutes();
+			loadLines();
+		}
 	}
 
-	@Autowired GraphDatabaseService graphDatabaseService;
-	
 	public void loadLines() throws IOException {
 		Reader in = new FileReader("data/lines.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("station1","station2","line").parse(in);

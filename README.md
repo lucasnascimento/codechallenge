@@ -1,3 +1,30 @@
+Solução Proposta
+================
+
+Frameworks utilizados:
+
+* Spring Boot - http://projects.spring.io/spring-boot/
+* Sprin Data Neo4J - http://projects.spring.io/spring-data-neo4j/
+* Neo4J - http://www.neo4j.org/
+
+Após clonado:
+
+1. mvn clean package
+2. java -jar target/codechallenge-0.0.1-SNAPSHOT.war
+
+Para testar no browser acesse:
+
+1. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/
+2. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/shortest/
+3. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/shortest/totaltime
+
+Exemplo:
+1. http://localhost:8080/route/49/285/
+2. http://localhost:8080/route/49/285/shortest/
+3. http://localhost:8080/route/49/285/shortest/totaltime
+
+
+
 code challenge
 ==============
 

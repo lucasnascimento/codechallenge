@@ -19,6 +19,7 @@ class StationRelationship {
 	@StartNode private Station station1;
 	@EndNode private Station station2;
 	private Long routeId;
+	private Integer distance = 1;
 	
 	public StationRelationship(Station station1, Station station2, Long routeId){
 		this.station1 = station1;

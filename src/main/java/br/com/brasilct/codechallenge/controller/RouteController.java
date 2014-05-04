@@ -1,64 +1,36 @@
 package br.com.brasilct.codechallenge.controller;
 
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Path;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.traversal.Evaluation;
-import org.neo4j.graphdb.traversal.Evaluator;
-import org.neo4j.graphdb.traversal.TraversalDescription;
-import org.neo4j.graphdb.traversal.Uniqueness;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.brasilct.codechallenge.model.Station;
-import br.com.brasilct.codechallenge.repository.StationRepository;
+import br.com.brasilct.codechallenge.service.RouteService;
 
 @Controller
 public class RouteController {
-	
-	@Autowired StationRepository stationRepository; 
-	
-	@Autowired GraphDatabaseService graphDatabaseService;
-	
-	@Autowired Neo4jOperations neo4jOperations;
 
-	@RequestMapping("/routes")
-	@Transactional
-	public @ResponseBody String getRoutes() {
+	@Autowired RouteService routeService;
+	
+	@RequestMapping("/route/{stationOrigin}/{stationDestination}")
+	public @ResponseBody List<Station> getAnyPath(@PathVariable Long stationOrigin,@PathVariable Long stationDestination) {
 		
-		Transaction transaction = graphDatabaseService.beginTx();
-		
-		
-		Station station1 = stationRepository.findByStationId(1l);
-		
-		TraversalDescription td = graphDatabaseService.traversalDescription()
-		        .uniqueness( Uniqueness.NODE_PATH )
-		        .evaluator( new Evaluator()
-		{
-		    @Override
-		    public Evaluation evaluate( Path path )
-		    {
-		        return Evaluation.of( true, true );
-		    }
-		} ); 
-		
-		Iterable<Station> it = stationRepository.findAll(); 
-		while (it.iterator().hasNext()){
-		
-			Station station = it.iterator().next();
-			
-			
-			
-		}
-		
-		
-		String result = stationRepository.findAllByTraversal(station1, td).iterator().hasNext()+"";
-		transaction.success();transaction.finish();
-		return result;
+		return routeService.listAnyPathBetween(stationOrigin, stationDestination);
 	}
 	
+	@RequestMapping("/route/{stationOrigin}/{stationDestination}/shortest")
+	public @ResponseBody List<Station> getShortestPath(@PathVariable Long stationOrigin,@PathVariable Long stationDestination) {
+		
+		return routeService.listShortestPathBetween(stationOrigin, stationDestination);
+	}
+
+	@RequestMapping("/route/{stationOrigin}/{stationDestination}/shortest/totaltime")
+	public @ResponseBody Integer getTimeFromShortestPath(@PathVariable Long stationOrigin,@PathVariable Long stationDestination) {
+		
+		return routeService.calculateTimeFromShortestPath(stationOrigin, stationDestination);
+	}
 }

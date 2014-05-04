@@ -14,9 +14,9 @@ Após clonado:
 
 Para testar no browser acesse:
 
-1. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/
-2. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/shortest/
-3. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATIO}/shortest/totaltime
+1. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATION}/
+2. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATION}/shortest/
+3. http://localhost:8080/route/{STATION_ID_ORIGIN}/{STATION_ID_DESTINATION}/shortest/totaltime
 
 Exemplo:
 1. http://localhost:8080/route/49/285/
